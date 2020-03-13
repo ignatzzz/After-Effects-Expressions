@@ -1,0 +1,14 @@
+// Control animation between keyframes
+// Very useful for animating multiple paths and shapes
+// Also allows loop expressions to be applied to paths
+
+
+s = effect("Slider Control")("Slider"); // link to slider
+
+if (numKeys > 1){
+  t0 = key(1).time;
+  t1 = key(numKeys).time;
+  t = linear(s,0,100,t0,t1);
+  valueAtTime(t);
+}else
+  value
