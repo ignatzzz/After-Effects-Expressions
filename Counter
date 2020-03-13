@@ -1,0 +1,43 @@
+// Counter with prefix and suffix
+// Apply to source text
+// Add two checkboxes and a slider to layer, label correctly
+
+spacer     = " ";
+decimal    = ".";
+prefix     = "$";
+suffix     = " cm";
+dm = 0;   // Decimal number
+
+isPrefixed = (effect("Show prefix")("Checkbox") == 1 ? prefix : "");
+isSuffixed = (effect("Show suffix")("Checkbox") == 1 ? suffix : "");
+amount     = effect("Amount")("Slider");
+
+function convertToMoney(amount) {
+  var _sign, _prefix, _suffix;
+  _sign   = "";
+  _prefix = ((isPrefixed) ? prefix : "");
+  _suffix = ((isSuffixed) ? suffix : "");
+
+  // Removing the negative
+  if (amount < 0) {
+    _sign = "-";
+    amount = -amount;
+
+  }
+
+  amount = parseFloat(amount).toFixed(dm);
+
+  amount = amount.toString().replace(/./g, function(character, index, array) {
+    if(character === ".") {
+      return decimal;
+    } else if ((array.length - index) % 3 || index === 0) {
+      return character;
+    } else {
+      return spacer + character;
+    }
+  });
+
+  return _sign + _prefix + amount + _suffix;
+}
+
+convertToMoney(amount);
