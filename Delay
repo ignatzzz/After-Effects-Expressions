@@ -1,0 +1,7 @@
+// Delay layers based on index (order in comp)
+// Can be applied to any property
+// If applied to many layers link delay to slider
+
+delay = .05; // Delay value in seconds
+leader = thisComp.layer(1); 
+leader.transform.rotation.valueAtTime(time - delay*(index-leader.index));
