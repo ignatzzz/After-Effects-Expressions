@@ -1,0 +1,9 @@
+// Countdown in seconds and minutes
+// Applied to source text or numbers effect
+
+st = 180; // start time
+
+t = st - time;  
+c = timeToTimecode(t);  
+c = c.substring(4,8) // specifies the digits, 0-11 for full range
+c
