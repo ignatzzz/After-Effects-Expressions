@@ -1,0 +1,8 @@
+// Returns the number of words of a layer
+// very useful for constant write on effects
+
+spaces = text.sourceText.split(" ").length;
+lines = text.sourceText.split("\r").length;
+words = spaces+lines;
+
+words
