@@ -1,0 +1,6 @@
+// writes on text at constant speed
+// applied to range selector opacity
+
+txt = text.sourceText;
+cps = 30; // characters per second
+100*(time-inPoint)*cps/txt.length
