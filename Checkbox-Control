@@ -1,0 +1,4 @@
+// Checkbox control of parameters
+// Useful for blinks if applied to opacity
+
+if (effect("Checkbox Control")("Checkbox") == 0){ 100 }else{ 0 }
