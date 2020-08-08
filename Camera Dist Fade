@@ -1,0 +1,24 @@
+// On a control layer named "Near and Far Fade" create 3 sliders called:
+// Near Fade Start
+// Fade Distance
+// Far Fade Start
+
+startInnerFade = thisComp.layer("Near and Far Fade").effect("Near Fade Start")("Slider");
+endInnerFade = startInnerFade-thisComp.layer("Near and Far Fade").effect("Fade Distance")("Slider");
+startOuterFade = thisComp.layer("Near and Far Fade").effect("Far Fade Start")("Slider");
+endOuterFade = startOuterFade+thisComp.layer("Near and Far Fade").effect("Fade Distance")("Slider");
+masterOpacity = transform.opacity;
+
+try{ // Check whether there's a camera.
+C = thisComp.activeCamera.toWorld([0,0,0]);
+}catch(err){ // No camera, so assume 50mm.
+w = thisComp.width * thisComp.pixelAspect;
+z = (w/2)/Math.tan(degreesToRadians(19.799));
+C = [thisComp.width/2,thisComp.height/2,-z];
+}
+P = toWorld(anchorPoint);
+d = length(C,P);
+if (d > (startInnerFade+startOuterFade)/2)
+linear(d,startOuterFade,endOuterFade,masterOpacity,0)
+else
+linear(d,endInnerFade,startInnerFade,0,masterOpacity)
