@@ -1,0 +1,9 @@
+// position on the outside of a circle
+
+center = [thisComp.width/2,thisComp.height/2]; //defines origin of circle
+radius = 300; // length of tangent
+angle = degreesToRadians(thisLayer.transform.rotation); //rotation of tangent
+x=radius*Math.cos(angle);
+y=radius*Math.sin(angle);
+add(center, [x,y]);
+
