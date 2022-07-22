@@ -1,3 +1,6 @@
+// Applied to the Path property of a shape layer it will create an animated sine wave
+// The perameters can be linked to sliders or dailed in manually as below
+
 S = 5; //speed
 A = 30; //Amplitude
 F = 10; //Frequency
