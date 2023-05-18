@@ -1,0 +1,17 @@
+// This will change the source text based on layer markers
+m = thisLayer;
+n = 0;
+
+if (m.marker.numKeys > 0) {
+  n = m.marker.nearestKey(time).index;
+  
+  if (m.marker.key(n).time > time) {
+    n--;
+  }
+}
+
+if (n > 0) {
+  m.marker.key(n).comment;
+} else {
+  "";
+}
