@@ -1,0 +1,21 @@
+// this will create text from markers based on marker duration
+
+if (time >= 0){
+  n = 0;
+  val = "";
+  if (marker.numKeys > 0){
+    n = marker.nearestKey(time).index;
+    if (marker.key(n).time > time) n--;
+  }
+  if (n > 0){
+    t = marker.key(n).time;
+    if (time >= t && time <= (t + marker.key(n).duration)){
+      val = marker.key(n).comment;
+    }
+  }
+  val
+}else if (time < -1){
+  "m\rm";
+}else{
+  "m";
+}
