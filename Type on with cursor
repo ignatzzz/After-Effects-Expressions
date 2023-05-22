@@ -1,0 +1,26 @@
+var sign = "|"; // change the blinking sign to "▌"or "_"
+var blinkInterval = 10; // edit the blinking interval in frames
+
+var i = effect("Text")("ADBE Slider Control-0001"); // slider with text length
+ 
+var on = effect("On/Off")("ADBE Checkbox Control-0001"); // checkbox to turn the cursor on and off
+
+var frames = timeToFrames(time);
+
+var check = frames / blinkInterval;
+
+if (on == 1) {
+  if (i.valueAtTime(time + thisComp.frameDuration) > i) {  
+    end = sign;
+  } else {
+    if (Math.floor(check) % 2 == 0) { 
+      end = sign;
+    } else {
+      end = " ";
+    }
+  }
+} else {
+  end = " ";
+}
+
+text.sourceText.substr(0,parseInt(i)) + end;
