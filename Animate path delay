@@ -1,0 +1,9 @@
+// add to a keyframed path
+const numPoints = points().length;
+let pts = [];
+const delay = 10; //enter frame input here
+for (let i = 0; i < numPoints; i++){
+	const p = points(time-i*framesToTime(delay))[i];
+	pts.push(p);
+}
+createPath(pts, [], [], false);
