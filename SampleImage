@@ -1,0 +1,4 @@
+point = thisLayer.position; // the point I want to sample
+v = thisComp.layer("background").sampleImage(point, radius = [.5, .5], postEffect = true, t = time);
+t = v[1];
+t > .5 ? 0 : 100 //or change to ease(t, 0, 1, 100, 0) for eased
