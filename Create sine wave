@@ -1,0 +1,16 @@
+// Applied to the Path property of a shape layer it will create an animated sine wave
+// The perameters can be linked to sliders or dailed in manually as below
+
+S = 5; //speed
+A = 30; //Amplitude
+F = 10; //Frequency
+R = 50; //Resolution
+W = 500; //Width
+
+
+P=[];
+
+for (i=0;i<R;i++){
+	P.push([W/R*i,Math.sin(time*S+i/(R/F))*A]);}
+
+createPath(P,[],[], false)
