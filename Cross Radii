@@ -1,0 +1,49 @@
+c1 = effect("Corner 1")("Slider");//add a slider to your shape layer
+c2 = 0;
+
+function multiRound(aPath, roundings) {
+	// multiple corner-radii
+	// Filip Vandueren 2023
+	const pts = aPath.points();
+	const it = aPath.inTangents(); const ot = aPath.outTangents(); const cl = aPath.isClosed();
+	let newPts = []; let newIt = []; let newOt = [];
+	for (let i=0; i<pts.length; i++) {
+		rounding = roundings[i%roundings.length];
+		if ((!cl && (i==0 || i==pts.length-1)) || length(it[i])!=0 || length(ot[i])!=0) {
+			// re-use the first and last vertex unaltered if the path is not closed
+			// OR if this vertex originally had tangents, it's also not discarded and chamfered, but kept:
+			newPts.push(pts[i]);
+			newIt.push(it[i]);
+			newOt.push(ot[i]);	
+		} else {
+			// add chamfer vertices, discarding the original vertex
+			// giving these new vertices tangents creates the rounded corners
+			// look at previous vertex
+			let j = i-1; 
+			if (j<0) j+=pts.length; // loop around in closed paths
+			let segment = (pts[j]+ot[j]-pts[i]); // consider a linesegment from this vertex to the prev outTangent
+			// where should we place the chamferpoint:
+			// on that segment, at a point that's 'roundingvalue' away from the current vertex
+			// but on a straight linesegment it should never be further than 1/2 the distance
+			// (the rounding is limited by the edges length)
+			let n = normalize(segment)*Math.min(rounding, length(segment)/(length(ot[j])==0 ? 2 : 1));
+			let chamferPoint = pts[i] + n;
+			// add the point and it's tangent, using the magic number 0.55 
+			// it's on the same linesegment
+			newPts.push(chamferPoint);
+			newIt.push([0,0]);
+			newOt.push(-n*0.55);
+			// look at next vertex
+			j = (i+1)%pts.length;  // loop around in closed paths			
+			segment = (pts[j]+it[j]-pts[i]);
+			// same logic as above
+			n = normalize(segment)*Math.min(rounding, length(segment)/(length(it[j])==0 ? 2 : 1));
+			chamferPoint = pts[i] + n;
+			newPts.push(chamferPoint);
+			newIt.push(-n*0.55);
+			newOt.push([0,0]);
+		}
+	}
+	return createPath(newPts, newIt, newOt, cl);
+}
+multiRound(thisProperty, [c1,c2,c2,c2,c2]);//this specifies which corners, it will repeat around the shape
