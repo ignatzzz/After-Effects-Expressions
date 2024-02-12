@@ -1,0 +1,4 @@
+//this works better than posterize time, no glitches
+
+t = framesToTime(Math.floor(timeToFrames()/3)*3);
+valueAtTime(t)
