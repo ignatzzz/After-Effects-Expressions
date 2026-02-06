@@ -1,0 +1,29 @@
+// ---- controls ----
+amp = 12;        // wobble strength (degrees)
+freq = 2;        // oscillations per second
+decay = 4;       // damping
+lean = 0.08;     // steady lean opposite to movement
+maxTilt = 30;    // maximum rotation (degrees)
+lookBack = 0.05; // time in seconds to sample previous position
+
+// ---- target ----
+target = thisComp.layer("Alien Ship");
+
+// ---- approximate velocity from position difference ----
+posNow  = target.transform.position.valueAtTime(time);
+posPrev = target.transform.position.valueAtTime(time - lookBack);
+v = (posNow - posPrev) / lookBack;  // pixels/sec approximation
+
+// ---- lean based on velocity ----
+baseLean = -v[0] * lean;
+
+// ---- time-dependent oscillation (always running) ----
+t = lookBack;  // small t for single-frame impulse
+wobble = v[0] * (amp / 100) * Math.sin(freq * t * 2 * Math.PI) / Math.exp(decay * t);
+
+// ---- combine lean + wobble, then clamp ----
+clamp(
+  value + baseLean + wobble,
+  -maxTilt,
+  maxTilt
+);
