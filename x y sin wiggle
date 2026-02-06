@@ -1,0 +1,18 @@
+// ===== CONTROLS =====
+freqX = 0.75;
+freqY = 3.5;
+
+ampX  = 75;
+ampY  = 15;
+// ====================
+
+// Unique but stable offset per layer
+seedRandom(index, true);
+timeOffset = random(0, 10);
+
+t = time + timeOffset;
+
+x = Math.sin(t * freqX * Math.PI * 2) * ampX;
+y = Math.sin(t * freqY * Math.PI * 2) * ampY;
+
+value + [x, y];
