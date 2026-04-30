@@ -1,0 +1,4 @@
+fadeTime =.33;
+fadeIn=linear(time,inPoint,inPoint+fadeTime, 0, 100);
+fadeOut=linear(time,outPoint,outPoint-fadeTime, 0, 100);
+fadeIn-fadeOut;
